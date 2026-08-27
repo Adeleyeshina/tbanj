@@ -6,6 +6,13 @@ import Neighborhoods from '@/components/page/home/neighborhoods'
 import WhyChoose from '@/components/page/home/whychoose'
 import CTABanner from '@/components/page/home/ctabanner'
 import React from 'react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Tbanj Apartment | Luxury Real Estate & Shortlets in Nigeria',
+    description:
+        'Discover premium apartments, duplexes, penthouses, and shortlets across Lagos, Ibadan, Abuja and beyond with Tbanj Apartment.',
+}
 
 const Home = () => {
   return (

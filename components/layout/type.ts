@@ -6,4 +6,5 @@ export interface Navlink {
 
 export interface MobileNavProps {
     isOpen: boolean
+    onClose: () => void
 }

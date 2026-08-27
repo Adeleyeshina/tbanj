@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import {
     Heart,
     MapPin,
@@ -31,8 +32,19 @@ export interface Property {
     areaSqM?: number
     neighborhood: string
     city?: string
+    address?: string
     images: string[]
     featured?: boolean
+    description?: string
+    features?: string[]
+    titleDocument?: string
+    furnishing?: string
+    neighborhoodInfo?: {
+        nearestAirport?: string
+        nearestMall?: string
+        nearestHospital?: string
+        beachAccess?: string
+    }
     agent: {
         name: string
         avatar: string
@@ -82,6 +94,23 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [favorited, setFavorited] = useState(false)
 
+    const router = useRouter()
+
+    const handleCardClick = (e: React.MouseEvent) => {
+        if (!href) return
+        const target = e.target as HTMLElement
+        if (target.closest('button, a')) return
+        router.push(href)
+    }
+
+    const handleCardKeyDown = (e: React.KeyboardEvent) => {
+        if (!href) return
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            router.push(href)
+        }
+    }
+
     const badge = purposeBadge[property.purpose]
     const hasMultiple = property.images.length > 1
 
@@ -97,7 +126,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     const currentImage = property.images[currentImageIndex] || property.images[0]
 
     const navigationArrows = (
-        <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+        <div className="absolute inset-0 flex items-center justify-between px-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity z-10">
             <button
                 type="button"
                 onClick={handlePrevImage}
@@ -183,6 +212,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     if (layout === 'list') {
         return (
             <div
+                onClick={handleCardClick}
+                onKeyDown={handleCardKeyDown}
+                role="link"
+                tabIndex={href ? 0 : undefined}
                 className={cn(
                     'group bg-white rounded-2xl border border-neutral-200/90 hover:border-brand-primary/40 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col md:flex-row',
                     className
@@ -278,6 +311,10 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
     return (
         <div
+            onClick={handleCardClick}
+            onKeyDown={handleCardKeyDown}
+            role="link"
+            tabIndex={href ? 0 : undefined}
             className={cn(
                 'group bg-white rounded-2xl border border-neutral-200/90 hover:border-brand-primary/40 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col',
                 className

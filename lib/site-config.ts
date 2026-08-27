@@ -20,3 +20,8 @@ export const getWhatsAppUrl = (number: string = siteConfig.whatsappNumber): stri
     `https://wa.me/${number.replace(/\D/g, '')}`
 
 export const getCallUrl = (number: string = siteConfig.officePhone): string => `tel:${number}`
+
+export const getMapUrl = (address: string = siteConfig.address): string =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
+
+export const getMailUrl = (email: string = siteConfig.email): string => `mailto:${email}`

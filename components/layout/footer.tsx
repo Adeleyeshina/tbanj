@@ -216,11 +216,11 @@ const Footer = () => {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-                        <Link href="/about" className="hover:text-neutral-300">
+                        <Link href="/privacy" className="hover:text-neutral-300">
                             Privacy Policy
                         </Link>
                         <span>•</span>
-                        <Link href="/about" className="hover:text-neutral-300">
+                        <Link href="/terms" className="hover:text-neutral-300">
                             Terms of Service
                         </Link>
                         <span>•</span>

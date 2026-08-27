@@ -12,7 +12,7 @@ const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false)
 
     const handleBookClick = () => {
-
+        setMobileMenuOpen(false)
     }
 
     return (
@@ -85,7 +85,7 @@ const Navbar = () => {
 
                 </div>
             </div>
-            <MobileNav isOpen={mobileMenuOpen} />
+            <MobileNav isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
         </header>
     );
 };
