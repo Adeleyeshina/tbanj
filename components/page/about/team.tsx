@@ -41,7 +41,7 @@ const Team = () => {
                             key={member.name}
                             className="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-sm"
                         >
-                            <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
+                            <div className="relative aspect-4/3 overflow-hidden bg-neutral-100">
                                 <Image
                                     src={member.image}
                                     alt={member.name}

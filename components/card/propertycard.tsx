@@ -366,7 +366,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/20" />
                 <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
                     <span className={cn('px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider shadow-sm', badge.bgClass)}>
                         {badge.label}

@@ -244,7 +244,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ property }) => {
 
             {/* Image Gallery */}
             <div className="space-y-3">
-                <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] max-h-[520px] bg-neutral-950 shadow-lg" {...gallerySwipeProps}>
+                <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-21/9 max-h-130 bg-neutral-950 shadow-lg" {...gallerySwipeProps}>
                     {property.images[selectedImageIndex] ? (
                         <Image
                             src={property.images[selectedImageIndex]}
@@ -431,7 +431,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ property }) => {
                             href={getMapUrl(addressLine)}
                             target="_blank"
                             rel="noopener noreferrer nofollow"
-                            className="relative block h-[380px] rounded-2xl overflow-hidden border border-neutral-200 group"
+                            className="relative block h-95 rounded-2xl overflow-hidden border border-neutral-200 group"
                         >
                             <Image
                                 src={property.images[0]}

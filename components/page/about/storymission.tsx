@@ -59,7 +59,7 @@ const StoryMission = () => {
                     </div>
 
                     <div className="lg:col-span-6 relative">
-                        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 h-[260px] sm:h-[380px] lg:h-[420px]">
+                        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-neutral-200 h-65 sm:h-95 lg:h-105">
                             <Image
                                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
                                 alt="Premium Nigerian Apartment"

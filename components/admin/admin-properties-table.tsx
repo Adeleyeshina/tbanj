@@ -5,6 +5,7 @@ import { Search, Plus, Star, Eye, Edit3, Trash2, ImageIcon } from 'lucide-react'
 import { Property } from '@/components/card/propertycard'
 import { formatPrice } from './admin-formatters'
 import { cn } from '@/utils/cn'
+import DeleteModal from '../ui/delete-modal'
 
 interface AdminPropertiesTableProps {
     properties: Property[]
@@ -14,14 +15,10 @@ interface AdminPropertiesTableProps {
     onAddNew: () => void
 }
 
-const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
-    properties,
-    onEdit,
-    onDelete,
-    onToggleFeatured,
-    onAddNew,
-}) => {
+const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({ properties, onEdit, onDelete, onToggleFeatured, onAddNew, }) => {
+
     const [search, setSearch] = useState('')
+    const [isDeleteClick, setDeleteClick] = useState<boolean>(false)
 
     const filtered = properties.filter((p) => {
         if (!search) return true
@@ -41,6 +38,7 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
             purpose === 'for-sale' && 'bg-amber-100 text-amber-800',
             purpose === 'shortlet' && 'bg-indigo-100 text-indigo-800'
         )
+
 
     return (
         <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs overflow-hidden space-y-4 p-4 sm:p-6">
@@ -66,7 +64,7 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
             </div>
 
             <div className="overflow-x-auto border border-neutral-200 rounded-2xl">
-                <table className="w-full text-left text-xs min-w-[720px]">
+                <table className="w-full text-left text-xs min-w-180">
                     <thead className="bg-neutral-50 text-neutral-600 uppercase font-bold text-[10px] tracking-wider border-b border-neutral-200">
                         <tr>
                             <th className="p-3.5">Property</th>
@@ -102,7 +100,7 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
                                             </div>
                                         )}
                                         <div className="min-w-0">
-                                            <p className="font-bold text-neutral-900 truncate max-w-[220px]">{prop.title}</p>
+                                            <p className="font-bold text-neutral-900 truncate max-w-55">{prop.title}</p>
                                             {prop.pid && (
                                                 <span className="font-mono text-[10px] text-neutral-500 bg-neutral-100 px-1.5 py-0.5 rounded">
                                                     {prop.pid}
@@ -114,7 +112,7 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
 
                                 <td className="p-3.5 whitespace-nowrap">
                                     <span className={purposeBadge(prop.purpose)}>{prop.purpose}</span>
-                                    <p className="text-[11px] text-neutral-500 mt-0.5">{prop.type}</p>
+                                    <p className="text-[11px] text-neutral-500 mt-0.5 text pl-2">{prop.type}</p>
                                 </td>
 
                                 <td className="p-3.5 whitespace-nowrap font-bold text-neutral-900">
@@ -126,7 +124,7 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
 
                                 <td className="p-3.5 whitespace-nowrap">
                                     <p className="font-semibold text-neutral-900">{prop.neighborhood || '—'}</p>
-                                    <p className="text-[10px] text-neutral-500 truncate max-w-[150px]">{prop.address || ''}</p>
+                                    <p className="text-[10px] text-neutral-500 truncate max-w-37.5">{prop.address || ''}</p>
                                 </td>
 
                                 <td className="p-3.5 whitespace-nowrap text-[11px] text-neutral-600">
@@ -164,7 +162,7 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
                                         <Edit3 className="w-4 h-4" />
                                     </button>
                                     <button
-                                        onClick={() => onDelete(prop.id, prop.title)}
+                                        onClick={() => setDeleteClick(true)}
                                         className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 transition-colors"
                                         title="Delete property"
                                     >
@@ -176,6 +174,11 @@ const AdminPropertiesTable: React.FC<AdminPropertiesTableProps> = ({
                     </tbody>
                 </table>
             </div>
+
+            <DeleteModal
+                isOpen={isDeleteClick}
+                onClose={() => setDeleteClick(false)}
+            />
         </div>
     )
 }

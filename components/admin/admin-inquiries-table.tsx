@@ -31,7 +31,7 @@ const AdminInquiriesTable: React.FC<AdminInquiriesTableProps> = ({ inquiries, on
                 </div>
             ) : (
                 <div className="overflow-x-auto border border-neutral-200 rounded-2xl">
-                    <table className="w-full text-left text-xs min-w-[720px]">
+                    <table className="w-full text-left text-xs min-w-180">
                         <thead className="bg-neutral-50 text-neutral-600 uppercase font-bold text-[10px] tracking-wider border-b border-neutral-200">
                             <tr>
                                 <th className="p-3.5">Customer</th>
@@ -51,7 +51,7 @@ const AdminInquiriesTable: React.FC<AdminInquiriesTableProps> = ({ inquiries, on
                                         {inq.userEmail && <p className="text-[10px] text-neutral-400">{inq.userEmail}</p>}
                                     </td>
                                     <td className="p-3.5">
-                                        <p className="font-semibold text-neutral-900 line-clamp-1 max-w-[200px]">{inq.propertyTitle}</p>
+                                        <p className="font-semibold text-neutral-900 line-clamp-1 max-w-50">{inq.propertyTitle}</p>
                                         {inq.propertyPid && (
                                             <span className="font-mono text-[10px] text-neutral-500 bg-neutral-100 px-1 py-0.5 rounded">
                                                 {inq.propertyPid}
@@ -69,7 +69,7 @@ const AdminInquiriesTable: React.FC<AdminInquiriesTableProps> = ({ inquiries, on
                                         </div>
                                     </td>
                                     <td className="p-3.5">
-                                        <p className="text-neutral-600 line-clamp-2 max-w-[220px] text-[11px]">
+                                        <p className="text-neutral-600 line-clamp-2 max-w-55 text-[11px]">
                                             {inq.message || 'No special note'}
                                         </p>
                                     </td>

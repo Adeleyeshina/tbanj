@@ -33,7 +33,7 @@ const PageHero: React.FC<PageHeroProps> = ({
                         sizes="100vw"
                         className="object-cover opacity-20"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-black/60" />
+                    <div className="absolute inset-0 bg-linear-to-t from-neutral-950 via-transparent to-black/60" />
                 </div>
             )}
 

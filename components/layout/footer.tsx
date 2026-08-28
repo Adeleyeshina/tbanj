@@ -94,7 +94,7 @@ const Footer = () => {
 
                     {/* Column 2: Quick Links */}
                     <div>
-                        <h4 className="font-heading text-white font-bold text-base mb-4 tracking-wide uppercase text-xs text-brand-accent">
+                        <h4 className="font-heading font-bold text-xs mb-4 tracking-wide uppercase text-brand-accent">
                             Explore
                         </h4>
                         <ul className="space-y-2.5 text-sm">
@@ -113,7 +113,7 @@ const Footer = () => {
 
                     {/* Column 3: Why Choose */}
                     <div>
-                        <h4 className="font-heading text-white font-bold text-base mb-4 tracking-wide uppercase text-xs text-brand-accent">
+                        <h4 className="font-heading font-bold text-xs mb-4 tracking-wide uppercase text-brand-accent">
                             Why Tbanj
                         </h4>
                         <ul className="space-y-3 text-sm">
@@ -146,7 +146,7 @@ const Footer = () => {
 
                     {/* Column 4: Newsletter & Direct Hotline */}
                     <div>
-                        <h4 className="font-heading text-white font-bold text-base mb-4 tracking-wide uppercase text-xs text-brand-accent">
+                        <h4 className="font-heading font-bold text-xs mb-4 tracking-wide uppercase text-brand-accent">
                             Stay Informed
                         </h4>
                         <p className="text-xs text-neutral-400 mb-3">

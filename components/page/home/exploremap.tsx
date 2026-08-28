@@ -30,7 +30,7 @@ const ExploreMap = () => {
                         </Link>
                     </div>
 
-                    <div className="relative h-[220px] sm:h-[420px] rounded-2xl overflow-hidden border border-white/10">
+                    <div className="relative h-55 sm:h-105 rounded-2xl overflow-hidden border border-white/10">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(30,58,138,0.25),transparent_60%)] bg-neutral-800" />
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
                             <div className="w-16 h-16 rounded-2xl bg-brand-primary/30 border border-brand-primary/50 flex items-center justify-center mb-4">

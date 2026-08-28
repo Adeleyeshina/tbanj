@@ -480,12 +480,12 @@ const AdminPropertyForm: React.FC<AdminPropertyFormProps> = ({
                             <div
                                 key={idx}
                                 className={cn(
-                                    'relative rounded-2xl overflow-hidden aspect-[4/3] border-2 transition-all group bg-neutral-950',
+                                    'relative rounded-2xl overflow-hidden aspect-4/3 border-2 transition-all group bg-neutral-950',
                                     idx === 0 ? 'border-brand-primary ring-2 ring-brand-primary/20 shadow-md' : 'border-neutral-200'
                                 )}
                             >
                                 <img src={url} alt={`Property Photo ${idx + 1}`} className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
+                                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-black/40 opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
                                     <div className="flex items-center justify-between">
                                         <span className="text-[10px] font-mono font-bold text-white bg-black/60 px-1.5 py-0.5 rounded">#{idx + 1}</span>
                                         <button
