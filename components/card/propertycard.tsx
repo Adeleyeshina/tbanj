@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
@@ -33,9 +33,12 @@ export interface Property {
     neighborhood: string
     city?: string
     address?: string
+    lat?: number
+    lng?: number
     images: string[]
     featured?: boolean
     description?: string
+    richDescription?: string
     features?: string[]
     titleDocument?: string
     furnishing?: string
@@ -93,11 +96,17 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [favorited, setFavorited] = useState(false)
+    const touchStartX = useRef<number | null>(null)
+    const didSwipe = useRef(false)
 
     const router = useRouter()
 
     const handleCardClick = (e: React.MouseEvent) => {
         if (!href) return
+        if (didSwipe.current) {
+            didSwipe.current = false
+            return
+        }
         const target = e.target as HTMLElement
         if (target.closest('button, a')) return
         router.push(href)
@@ -114,23 +123,50 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     const badge = purposeBadge[property.purpose]
     const hasMultiple = property.images.length > 1
 
+    const goNext = () =>
+        setCurrentImageIndex((prev) => (prev + 1) % property.images.length)
+    const goPrev = () =>
+        setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)
+
     const handleNextImage = (e: React.MouseEvent) => {
         e.stopPropagation()
-        setCurrentImageIndex((prev) => (prev + 1) % property.images.length)
+        goNext()
     }
     const handlePrevImage = (e: React.MouseEvent) => {
         e.stopPropagation()
-        setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)
+        goPrev()
+    }
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0]?.clientX ?? null
+    }
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (!hasMultiple || touchStartX.current === null) {
+            touchStartX.current = null
+            return
+        }
+        const deltaX = e.changedTouches[0]?.clientX - touchStartX.current
+        touchStartX.current = null
+        if (Math.abs(deltaX) < 40) return
+        didSwipe.current = true
+        e.stopPropagation()
+        if (deltaX < 0) goNext()
+        else goPrev()
+    }
+
+    const swipeProps = {
+        onTouchStart: handleTouchStart,
+        onTouchEnd: handleTouchEnd,
     }
 
     const currentImage = property.images[currentImageIndex] || property.images[0]
 
     const navigationArrows = (
-        <div className="absolute inset-0 flex items-center justify-between px-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity z-10">
+        <div className="absolute inset-0 flex items-center justify-between px-2 opacity-100 z-10 pointer-events-none">
             <button
                 type="button"
                 onClick={handlePrevImage}
-                className="w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors"
+                className="w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors pointer-events-auto"
                 aria-label="Previous image"
             >
                 <ChevronLeft className="w-4 h-4" />
@@ -138,7 +174,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             <button
                 type="button"
                 onClick={handleNextImage}
-                className="w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors"
+                className="w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors pointer-events-auto"
                 aria-label="Next image"
             >
                 <ChevronRight className="w-4 h-4" />
@@ -221,7 +257,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                     className
                 )}
             >
-                <div className="relative md:w-80 lg:w-96 shrink-0 h-64 md:h-auto overflow-hidden bg-neutral-100">
+                <div className="relative md:w-80 lg:w-96 shrink-0 h-64 md:h-auto overflow-hidden bg-neutral-100" {...swipeProps}>
                     {currentImage && (
                         <Image
                             src={currentImage}
@@ -320,7 +356,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                 className
             )}
         >
-            <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
+            <div className="relative aspect-4/3 overflow-hidden bg-neutral-100" {...swipeProps}>
                 {currentImage && (
                     <Image
                         src={currentImage}

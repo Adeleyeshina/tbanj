@@ -42,9 +42,15 @@ const OfficeDetails = () => {
                         </a>
                         <a
                             href={getCallUrl(siteConfig.supportPhone)}
-                            className="text-neutral-600 hover:text-brand-primary transition-colors"
+                            className="text-neutral-600 block hover:text-brand-primary transition-colors"
                         >
                             {siteConfig.supportPhone}
+                        </a>
+                        <a
+                            href={getCallUrl(siteConfig.officePhoneUK)}
+                            className="text-neutral-600 block hover:text-brand-primary transition-colors"
+                        >
+                            {siteConfig.officePhoneUK} (International)
                         </a>
                     </div>
                 </div>
@@ -60,12 +66,6 @@ const OfficeDetails = () => {
                             className="text-neutral-600 mt-0.5 block hover:text-brand-primary transition-colors"
                         >
                             {siteConfig.email}
-                        </a>
-                        <a
-                            href={getMailUrl('concierge@tbanjapartment.com')}
-                            className="text-neutral-600 hover:text-brand-primary transition-colors"
-                        >
-                            concierge@tbanjapartment.com
                         </a>
                     </div>
                 </div>

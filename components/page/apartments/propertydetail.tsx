@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
@@ -56,6 +56,29 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ property }) => {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0)
     const [favorited, setFavorited] = useState(false)
     const [copiedLink, setCopiedLink] = useState(false)
+    const touchStartX = useRef<number | null>(null)
+
+    const goNextImage = () =>
+        setSelectedImageIndex((p) => (p + 1) % property.images.length)
+    const goPrevImage = () =>
+        setSelectedImageIndex((p) => (p - 1 + property.images.length) % property.images.length)
+
+    const handleGalleryTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0]?.clientX ?? null
+    }
+    const handleGalleryTouchEnd = (e: React.TouchEvent) => {
+        if (touchStartX.current === null) return
+        const deltaX = e.changedTouches[0]?.clientX - touchStartX.current
+        touchStartX.current = null
+        if (property.images.length <= 1 || Math.abs(deltaX) < 40) return
+        if (deltaX < 0) goNextImage()
+        else goPrevImage()
+    }
+
+    const gallerySwipeProps = {
+        onTouchStart: handleGalleryTouchStart,
+        onTouchEnd: handleGalleryTouchEnd,
+    }
 
     // Booking form
     const [bookingName, setBookingName] = useState('')
@@ -221,7 +244,7 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ property }) => {
 
             {/* Image Gallery */}
             <div className="space-y-3">
-                <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] max-h-[520px] bg-neutral-950 shadow-lg">
+                <div className="relative rounded-3xl overflow-hidden aspect-video md:aspect-[21/9] max-h-[520px] bg-neutral-950 shadow-lg" {...gallerySwipeProps}>
                     {property.images[selectedImageIndex] ? (
                         <Image
                             src={property.images[selectedImageIndex]}
@@ -363,7 +386,12 @@ const PropertyDetail: React.FC<PropertyDetailProps> = ({ property }) => {
                         <h3 className="font-heading font-bold text-xl text-neutral-900 pb-3 border-b border-neutral-100">
                             Detailed Description
                         </h3>
-                        {property.description ? (
+                        {property.richDescription ? (
+                            <div
+                                dangerouslySetInnerHTML={{ __html: property.richDescription }}
+                                className="rich-text text-neutral-700 leading-relaxed text-sm space-y-3"
+                            />
+                        ) : property.description ? (
                             <p className="text-neutral-700 leading-relaxed text-sm">{property.description}</p>
                         ) : (
                             <p className="text-neutral-700 leading-relaxed text-sm">{property.tagline}</p>

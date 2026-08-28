@@ -1,5 +1,6 @@
 import Navbar from '@/components/layout/navbar'
 import Footer from '@/components/layout/footer'
+import FloatingActions from '@/components/layout/floatingactions'
 import React from 'react'
 
 const MainLayout = ({children} : {children : React.ReactNode}) => {
@@ -8,6 +9,7 @@ const MainLayout = ({children} : {children : React.ReactNode}) => {
         <Navbar />
         {children}
         <Footer />
+        <FloatingActions />
     </main>
   )
 }
